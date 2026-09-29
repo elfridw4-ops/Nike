@@ -5,11 +5,13 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Ruler, Truck, ShieldCheck, RotateCcw } from 'lucide-react';
+import { SizeGuideModal } from '../ui/SizeGuideModal';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,47 +21,36 @@ export const Footer: React.FC = () => {
     }
   };
 
-  const columns = [
+  // Only links leading to real dedicated sections / filtered views
+  const navigationColumns = [
     {
-      title: 'Produits',
+      title: 'Terrains & Usages',
       links: [
         { label: 'Chaussures Route', path: '/catalogue?usage=route' },
         { label: 'Chaussures Trail', path: '/catalogue?usage=trail' },
         { label: 'Spikes & Piste', path: '/catalogue?usage=piste' },
-        { label: 'Récupération', path: '/catalogue?usage=recuperation' },
-        { label: 'Nouveautés 2026', path: '/catalogue?nouveautes=true' },
-        { label: 'Toutes les collections', path: '/catalogue' }
+        { label: 'Récupération Active', path: '/catalogue?usage=recuperation' },
+        { label: 'Nouveautés 2026', path: '/catalogue?nouveautes=true' }
       ]
     },
     {
-      title: 'Aide & Conseils',
+      title: 'Collections',
       links: [
-        { label: 'Guide des pointures Nike', path: '/catalogue' },
-        { label: 'Suivi de commande', path: '/catalogue' },
-        { label: 'Livraison & Délais', path: '/catalogue' },
-        { label: 'Retours sous 30 jours', path: '/catalogue' },
-        { label: 'Foire aux questions (FAQ)', path: '/catalogue' },
-        { label: 'Nous contacter', path: '/catalogue' }
+        { label: 'Collection Homme', path: '/catalogue?genre=homme' },
+        { label: 'Collection Femme', path: '/catalogue?genre=femme' },
+        { label: 'Modèles Populaires', path: '/catalogue?sort=populaires' },
+        { label: 'Prix Croissants', path: '/catalogue?sort=prix-asc' },
+        { label: 'Tout le Catalogue', path: '/catalogue' }
       ]
     },
     {
-      title: 'Communauté',
+      title: 'Modèles Signature',
       links: [
-        { label: 'Nike Running Club', path: '/catalogue' },
-        { label: 'Sessions Cotonou & International', path: '/catalogue' },
-        { label: 'Programme Athlètes Elite', path: '/catalogue' },
-        { label: 'Événements & Marathons', path: '/catalogue' },
-        { label: 'Stories & Innovation', path: '/catalogue' }
-      ]
-    },
-    {
-      title: 'Légal & Éthique',
-      links: [
-        { label: 'Conditions Générales (CGV)', path: '/catalogue' },
-        { label: 'Politique de confidentialité', path: '/catalogue' },
-        { label: 'Gestion des cookies', path: '/catalogue' },
-        { label: 'Durabilité & Innovation Move to Zero', path: '/catalogue' },
-        { label: 'Mentions légales', path: '/catalogue' }
+        { label: 'Nike Tempo 400', path: '/produit/tempo-400' },
+        { label: 'Nike Vireur Trail', path: '/produit/vireur-trail' },
+        { label: 'Nike AeroPulse Elite', path: '/produit/aeropulse-elite' },
+        { label: 'Nike Strata Glide', path: '/produit/strata-glide' },
+        { label: 'Nike Rebound Recovery', path: '/produit/rebound-recovery' }
       ]
     }
   ];
@@ -122,9 +113,9 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* 4 Columns (max 6 links per column) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12">
-          {columns.map((col) => (
+        {/* Dedicated Navigation Columns + Interactive Services */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 py-12">
+          {navigationColumns.map((col) => (
             <div key={col.title} className="space-y-3">
               <h5 className="font-anton text-base tracking-wider text-[#FFFFFF]">
                 {col.title}
@@ -134,7 +125,7 @@ export const Footer: React.FC = () => {
                   <li key={link.label}>
                     <Link
                       to={link.path}
-                      className="hover:text-[#FA5400] transition-colors focus-visible:outline-1 focus-visible:outline-[#FA5400]"
+                      className="hover:text-[#FA5400] transition-colors focus-visible:outline-1 focus-visible:outline-[#FA5400] block"
                     >
                       {link.label}
                     </Link>
@@ -143,6 +134,42 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
           ))}
+
+          {/* 4th Column: Interactive Services & Size Guide */}
+          <div className="space-y-4">
+            <h5 className="font-anton text-base tracking-wider text-[#FFFFFF]">
+              Services & Outils
+            </h5>
+            <div className="space-y-2.5 text-xs text-[#FFFFFF]/80">
+              <button
+                type="button"
+                onClick={() => setSizeGuideOpen(true)}
+                className="w-full text-left p-3 bg-[#1A1A1A] hover:bg-[#222222] border border-[#FFFFFF]/10 hover:border-[#FA5400] rounded-xs transition-colors flex items-center gap-2.5 cursor-pointer text-[#FFFFFF] group"
+              >
+                <Ruler className="w-4 h-4 text-[#FA5400] shrink-0" />
+                <div>
+                  <p className="font-anton text-sm text-[#FFFFFF] group-hover:text-[#FA5400]">Guide des Pointures</p>
+                  <p className="text-[11px] text-[#FFFFFF]/60">Tableau de correspondance EU/US/CM</p>
+                </div>
+              </button>
+
+              <div className="p-3 bg-[#1A1A1A] border border-[#FFFFFF]/10 rounded-xs flex items-center gap-2.5">
+                <Truck className="w-4 h-4 text-[#CCFF00] shrink-0" />
+                <div>
+                  <p className="font-semibold text-xs text-[#FFFFFF]">Expédition Express 24-48h</p>
+                  <p className="text-[11px] text-[#FFFFFF]/60">Suivi SMS & appel coursier</p>
+                </div>
+              </div>
+
+              <div className="p-3 bg-[#1A1A1A] border border-[#FFFFFF]/10 rounded-xs flex items-center gap-2.5">
+                <RotateCcw className="w-4 h-4 text-[#FA5400] shrink-0" />
+                <div>
+                  <p className="font-semibold text-xs text-[#FFFFFF]">Retours Gratuits 30 Jours</p>
+                  <p className="text-[11px] text-[#FFFFFF]/60">Échange simple de pointure</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Bar: Copyright & Location */}
@@ -155,6 +182,12 @@ export const Footer: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Global Size Guide Modal */}
+      <SizeGuideModal
+        isOpen={sizeGuideOpen}
+        onClose={() => setSizeGuideOpen(false)}
+      />
     </footer>
   );
 };

@@ -9,6 +9,7 @@ import { Star, ShieldCheck, Truck, RotateCcw, ChevronDown, ChevronUp, ArrowRight
 import { PRODUCTS, formatPrice } from '../data/products';
 import { useCartStore } from '../store/cartStore';
 import { ProductColor } from '../types/product';
+import { SizeGuideModal } from '../components/ui/SizeGuideModal';
 
 export const ProductDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -25,6 +26,7 @@ export const ProductDetailPage: React.FC = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
   // Update selection when route slug or product changes
   useEffect(() => {
@@ -332,9 +334,13 @@ export const ProductDetailPage: React.FC = () => {
                   <p className="text-xs uppercase font-bold text-[#111111]">
                     Sélectionner la pointure (EU)
                   </p>
-                  <span className="text-xs text-[#111111]/60 underline cursor-pointer hover:text-[#FA5400]">
+                  <button
+                    type="button"
+                    onClick={() => setSizeGuideOpen(true)}
+                    className="text-xs text-[#111111]/70 underline cursor-pointer hover:text-[#FA5400] font-semibold flex items-center gap-1"
+                  >
                     Guide des pointures Nike
-                  </span>
+                  </button>
                 </div>
 
                 <div className="grid grid-cols-5 gap-2">
@@ -550,6 +556,13 @@ export const ProductDetailPage: React.FC = () => {
           )}
         </button>
       </div>
+
+      {/* Official Nike Size Guide Modal */}
+      <SizeGuideModal
+        isOpen={sizeGuideOpen}
+        onClose={() => setSizeGuideOpen(false)}
+        onSelectSize={(sz) => setSelectedSize(sz)}
+      />
     </main>
   );
 };
