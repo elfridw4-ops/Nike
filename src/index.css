@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --craie: #F5F3EE;
+    --encre: #201C18;
+    --vermillon: #C23B2E;
+    --noir: #262421;
+    --sable: #E4E0D6;
+    --radius: 2px;
+    --nav-h: 64px;
+
+    /* z-index scale */
+    --z-background: 0;
+    --z-default: 1;
+    --z-sticky-cta: 30;
+    --z-nav: 40;
+    --z-modal: 50;
+    --z-toast: 60;
+  }
+
+  body {
+    background-color: var(--craie);
+    color: var(--encre);
+    font-family: 'Archivo', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, .font-anton {
+    font-family: 'Anton', impact, sans-serif;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Halftone raster effect for athlete hero */
+.halftone-effect {
+  position: relative;
+}
+
+.halftone-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(32, 28, 24, 0.85) 1.5px, transparent 1.6px);
+  background-size: 5px 5px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+/* Noise overlay SVG container */
+.grain-layer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.04;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--craie);
+}
+::-webkit-scrollbar-thumb {
+  background: #C7C2B8;
+  border-radius: var(--radius);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vermillon);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--vermillon);
+  outline-offset: 2px;
+}
+
+/* Button active bounce */
+button:active, .btn-active:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease-out;
+}
+
+/* Safe area bottom padding for sticky CTA */
+.safe-pb-sticky {
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 16px));
+}
+
+/* Wipe Page Transition Container */
+.page-wipe-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--vermillon);
+  z-index: 100;
+  pointer-events: none;
+  transform-origin: top;
+}

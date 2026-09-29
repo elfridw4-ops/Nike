@@ -1,0 +1,6 @@
+{
+  "name": "Web Project & Prompt Framework",
+  "description": "Plateforme web structurée avec bibliothèque de composants et prompts de conception",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
