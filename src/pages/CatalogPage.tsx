@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Filter, X, ArrowUpDown, Star, ChevronLeft, ChevronRight, Check, ShoppingBag, Eye } from 'lucide-react';
+import { Filter, X, ArrowUpDown, Star, ChevronLeft, ChevronRight, Check, ShoppingBag } from 'lucide-react';
 import { PRODUCTS, formatPrice } from '../data/products';
 import { Product, ProductUsage } from '../types/product';
 import { useCartStore } from '../store/cartStore';
 
-// Dedicated Interactive Product Card with Color Switcher & Quick Add
+// Dedicated Interactive Nike Product Card with Color Switcher & Quick Add
 const CatalogProductCard: React.FC<{
   product: Product;
   onQuickAdd: (product: Product, colorIndex: number) => void;
@@ -20,31 +20,31 @@ const CatalogProductCard: React.FC<{
   const activeColor = product.colors[activeColorIdx] || product.colors[0];
 
   return (
-    <div className="bg-white border border-[#E4E0D6] rounded-xs p-3.5 flex flex-col justify-between group hover:border-[#201C18] transition-all hover:shadow-md relative">
+    <div className="bg-[#FFFFFF] border border-[#E5E5E5] rounded-xs p-3.5 flex flex-col justify-between group hover:border-[#111111] transition-all hover:shadow-md relative">
       {/* Badge top */}
       <div className="flex justify-between items-start mb-2">
         <div className="flex flex-col gap-1">
           {product.isNew && (
-            <span className="px-1.5 py-0.5 bg-[#C23B2E] text-[#F5F3EE] text-[10px] font-anton tracking-wider uppercase rounded-xs w-fit">
+            <span className="px-1.5 py-0.5 bg-[#FA5400] text-[#FFFFFF] text-[10px] font-anton tracking-wider uppercase rounded-2xs w-fit">
               Nouveau
             </span>
           )}
           {product.isPopular && !product.isNew && (
-            <span className="px-1.5 py-0.5 bg-[#201C18] text-[#F5F3EE] text-[10px] font-anton tracking-wider uppercase rounded-xs w-fit">
+            <span className="px-1.5 py-0.5 bg-[#111111] text-[#CCFF00] text-[10px] font-anton tracking-wider uppercase rounded-2xs w-fit">
               Populaire
             </span>
           )}
         </div>
-        <div className="flex items-center gap-1 text-xs text-[#262421]/70">
+        <div className="flex items-center gap-1 text-xs text-[#111111]/70">
           <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-          <span className="font-bold tabular-nums">{product.rating}</span>
+          <span className="font-bold tabular-nums text-[#111111]">{product.rating}</span>
         </div>
       </div>
 
       {/* Image with instant Color Switch and hover effect */}
       <Link
         to={`/produit/${product.slug}`}
-        className="relative block h-40 sm:h-48 overflow-hidden my-2 bg-[#F5F3EE] rounded-xs"
+        className="relative block h-40 sm:h-48 overflow-hidden my-2 bg-[#F5F5F5] rounded-xs"
         aria-label={`Voir la fiche de ${product.name}`}
       >
         <img
@@ -57,12 +57,12 @@ const CatalogProductCard: React.FC<{
 
       {/* Product Details */}
       <div className="space-y-1.5 mt-2">
-        <div className="text-[11px] uppercase font-bold text-[#262421]/60">
+        <div className="text-[11px] uppercase font-bold text-[#111111]/60">
           {product.category} · {product.usage}
         </div>
         <Link
           to={`/produit/${product.slug}`}
-          className="font-anton text-lg sm:text-xl text-[#201C18] hover:text-[#C23B2E] transition-colors block leading-tight truncate"
+          className="font-anton text-lg sm:text-xl text-[#111111] hover:text-[#FA5400] transition-colors block leading-tight truncate"
         >
           {product.name}
         </Link>
@@ -84,46 +84,46 @@ const CatalogProductCard: React.FC<{
                   onMouseEnter={() => setActiveColorIdx(cIdx)}
                   className={`relative p-0.5 rounded-full transition-all cursor-pointer ${
                     isActive
-                      ? 'ring-2 ring-[#C23B2E] ring-offset-1 scale-110'
+                      ? 'ring-2 ring-[#FA5400] ring-offset-1 scale-110'
                       : 'hover:scale-110 opacity-80 hover:opacity-100'
                   }`}
                   title={`${c.name} (cliquer pour prévisualiser)`}
                   aria-label={`Coloris ${c.name}`}
                 >
                   <span
-                    className="w-3.5 h-3.5 rounded-full border border-black/30 block"
+                    className="w-3.5 h-3.5 rounded-full border border-black/25 block"
                     style={{ backgroundColor: c.hex }}
                   />
                 </button>
               );
             })}
-            <span className="text-[10px] text-[#262421]/60 font-medium ml-1 truncate max-w-[110px]">
+            <span className="text-[10px] text-[#111111]/60 font-medium ml-1 truncate max-w-[110px]">
               {activeColor.name}
             </span>
           </div>
         </div>
 
         {/* Price + Rapid Add */}
-        <div className="pt-2 border-t border-[#E4E0D6] flex items-center justify-between">
+        <div className="pt-2 border-t border-[#E5E5E5] flex items-center justify-between">
           <div className="flex flex-col">
             {product.originalPrice && (
-              <del className="text-[11px] text-[#262421]/40 tabular-nums">
+              <del className="text-[11px] text-[#111111]/40 tabular-nums">
                 {formatPrice(product.originalPrice)}
               </del>
             )}
-            <span className="font-bold text-sm sm:text-base text-[#C23B2E] tabular-nums">
+            <span className="font-bold text-sm sm:text-base text-[#FA5400] tabular-nums">
               {formatPrice(product.price)}
             </span>
           </div>
 
           <button
             onClick={() => onQuickAdd(product, activeColorIdx)}
-            className="p-2 bg-[#201C18] text-[#F5F3EE] hover:bg-[#C23B2E] transition-colors rounded-xs cursor-pointer"
+            className="p-2 bg-[#111111] text-[#FFFFFF] hover:bg-[#FA5400] transition-colors rounded-xs cursor-pointer shadow-2xs"
             aria-label={`Ajout rapide de ${product.name} en ${activeColor.name}`}
             title={`Ajout rapide (${activeColor.name})`}
           >
             {isQuickAdded ? (
-              <Check className="w-4 h-4 text-emerald-400" />
+              <Check className="w-4 h-4 text-[#CCFF00]" />
             ) : (
               <ShoppingBag className="w-4 h-4" />
             )}
@@ -169,12 +169,13 @@ export const CatalogPage: React.FC = () => {
     setSearchParams(new URLSearchParams());
   };
 
-  // Color options
+  // Authentic Nike Color filter options
   const colorOptions = [
-    { label: 'Vermillon', hex: '#C23B2E' },
-    { label: 'Craie', hex: '#F5F3EE' },
-    { label: 'Noir', hex: '#262421' },
-    { label: 'Sable', hex: '#E4E0D6' }
+    { label: 'Orange', hex: '#FA5400' },
+    { label: 'Volt', hex: '#CCFF00' },
+    { label: 'Noir', hex: '#111111' },
+    { label: 'Blanc', hex: '#FFFFFF' },
+    { label: 'Gris', hex: '#E5E5E5' }
   ];
 
   // Size options
@@ -238,19 +239,19 @@ export const CatalogPage: React.FC = () => {
         '@type': 'ListItem',
         position: 1,
         name: 'Accueil',
-        item: 'https://rebuild.example.com/'
+        item: 'https://nike.example.com/'
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'Running & Performance',
-        item: 'https://rebuild.example.com/catalogue'
+        name: 'Running & Chaussures de Performance',
+        item: 'https://nike.example.com/catalogue'
       }
     ]
   };
 
   return (
-    <main id="main-content" className="w-full bg-[#F5F3EE] pt-24 pb-20 min-h-screen">
+    <main id="main-content" className="w-full bg-[#F5F5F5] pt-24 pb-20 min-h-screen">
       {/* JSON-LD Script */}
       <script
         type="application/ld+json"
@@ -259,50 +260,50 @@ export const CatalogPage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
-        <nav aria-label="breadcrumb" className="text-xs text-[#262421]/60 mb-4 flex items-center gap-2">
-          <Link to="/" className="hover:text-[#C23B2E] transition-colors">
+        <nav aria-label="breadcrumb" className="text-xs text-[#111111]/60 mb-4 flex items-center gap-2">
+          <Link to="/" className="hover:text-[#FA5400] transition-colors">
             Accueil
           </Link>
           <span>/</span>
-          <span className="text-[#201C18] font-bold">Running & Chaussures de Performance</span>
+          <span className="text-[#111111] font-bold">Nike Running & Performance</span>
         </nav>
 
-        {/* Category Header with SEO intro (100-150 words) */}
-        <div className="pb-8 mb-8 border-b border-[#E4E0D6]">
-          <h1 className="font-anton text-4xl sm:text-6xl text-[#201C18] tracking-tight uppercase">
-            RUNNING & PERFORMANCE
+        {/* Category Header with SEO intro */}
+        <div className="pb-8 mb-8 border-b border-[#E5E5E5]">
+          <h1 className="font-anton text-4xl sm:text-6xl text-[#111111] tracking-tight uppercase">
+            NIKE RUNNING & PERFORMANCE
           </h1>
-          <p className="text-sm sm:text-base text-[#262421]/80 mt-3 max-w-3xl leading-relaxed">
-            Explorez l’intégralité de la collection running REBUILD. Conçues pour répondre aux exigences des coureurs sur route, sentiers de trail et pistes d’athlétisme, nos chaussures allient géométrie propulsive, plaques en fibre de carbone et mousses supercritiques à retour d’énergie continu. Chaque modèle est développé pour absorber les impacts sans ralentir la cadence, garantissant une endurance accrue du premier kilomètre au franchissement de la ligne d'arrivée.
+          <p className="text-sm sm:text-base text-[#111111]/80 mt-3 max-w-3xl leading-relaxed">
+            Explorez l’intégralité de la collection running NIKE. Conçues pour répondre aux exigences des coureurs sur route, sentiers de trail et pistes d’athlétisme, nos chaussures allient géométrie propulsive, plaques en fibre de carbone et mousses ZoomX supercritiques à retour d’énergie continu. Chaque modèle est développé pour absorber les impacts sans ralentir la cadence, garantissant une endurance accrue du premier kilomètre au franchissement de la ligne d'arrivée.
           </p>
         </div>
 
         {/* Toolbar Bar */}
-        <div className="bg-white border border-[#E4E0D6] p-4 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xs shadow-2xs">
+        <div className="bg-[#FFFFFF] border border-[#E5E5E5] p-4 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xs shadow-2xs">
           <div className="flex items-center gap-3">
             {/* Mobile Filter Button */}
             <button
               onClick={() => setMobileFiltersOpen(true)}
-              className="md:hidden flex items-center gap-2 px-4 py-2.5 bg-[#201C18] text-[#F5F3EE] font-anton text-sm rounded-xs"
+              className="md:hidden flex items-center gap-2 px-4 py-2.5 bg-[#111111] text-[#FFFFFF] font-anton text-sm rounded-xs cursor-pointer"
             >
               <Filter className="w-4 h-4" />
               <span>Filtres ({activeFilterCount})</span>
             </button>
 
-            <span className="text-sm font-semibold text-[#201C18] tabular-nums">
-              {filteredProducts.length} modèle{filteredProducts.length > 1 ? 's' : ''} disponible{filteredProducts.length > 1 ? 's' : ''}
+            <span className="text-sm font-semibold text-[#111111] tabular-nums">
+              {filteredProducts.length} modèle{filteredProducts.length > 1 ? 's' : ''} Nike disponible{filteredProducts.length > 1 ? 's' : ''}
             </span>
           </div>
 
           {/* Sorting Dropdown */}
           <div className="flex items-center gap-2 self-end sm:self-auto">
-            <span className="text-xs uppercase font-bold text-[#262421]/60 flex items-center gap-1">
+            <span className="text-xs uppercase font-bold text-[#111111]/60 flex items-center gap-1">
               <ArrowUpDown className="w-3.5 h-3.5" /> Trier par :
             </span>
             <select
               value={sortBy}
               onChange={(e) => updateFilter('sort', e.target.value)}
-              className="bg-[#F5F3EE] border border-[#201C18] px-3 py-1.5 text-sm font-semibold text-[#201C18] focus:outline-none focus:border-[#C23B2E] rounded-xs"
+              className="bg-[#F5F5F5] border border-[#111111] px-3 py-1.5 text-sm font-semibold text-[#111111] focus:outline-none focus:border-[#FA5400] rounded-xs"
             >
               <option value="nouveautes">Nouveautés</option>
               <option value="prix-asc">Prix : croissant</option>
@@ -315,58 +316,58 @@ export const CatalogPage: React.FC = () => {
         {/* Active Filter Chips */}
         {activeFilterCount > 0 && (
           <div className="flex flex-wrap items-center gap-2 mb-6">
-            <span className="text-xs uppercase font-bold text-[#262421]/60">Filtres actifs :</span>
+            <span className="text-xs uppercase font-bold text-[#111111]/60">Filtres actifs :</span>
             {selectedUsage && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#201C18] text-xs font-bold uppercase rounded-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#111111] text-xs font-bold uppercase rounded-xs">
                 Usage: {selectedUsage}
                 <button onClick={() => updateFilter('usage', null)} aria-label="Supprimer le filtre usage">
-                  <X className="w-3.5 h-3.5 text-[#C23B2E]" />
+                  <X className="w-3.5 h-3.5 text-[#FA5400]" />
                 </button>
               </span>
             )}
             {selectedGender && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#201C18] text-xs font-bold uppercase rounded-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#111111] text-xs font-bold uppercase rounded-xs">
                 Genre: {selectedGender}
                 <button onClick={() => updateFilter('genre', null)} aria-label="Supprimer le filtre genre">
-                  <X className="w-3.5 h-3.5 text-[#C23B2E]" />
+                  <X className="w-3.5 h-3.5 text-[#FA5400]" />
                 </button>
               </span>
             )}
             {selectedSize && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#201C18] text-xs font-bold uppercase rounded-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#111111] text-xs font-bold uppercase rounded-xs">
                 Pointure: {selectedSize}
                 <button onClick={() => updateFilter('taille', null)} aria-label="Supprimer le filtre taille">
-                  <X className="w-3.5 h-3.5 text-[#C23B2E]" />
+                  <X className="w-3.5 h-3.5 text-[#FA5400]" />
                 </button>
               </span>
             )}
             {selectedColor && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#201C18] text-xs font-bold uppercase rounded-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#111111] text-xs font-bold uppercase rounded-xs">
                 Couleur: {selectedColor}
                 <button onClick={() => updateFilter('couleur', null)} aria-label="Supprimer le filtre couleur">
-                  <X className="w-3.5 h-3.5 text-[#C23B2E]" />
+                  <X className="w-3.5 h-3.5 text-[#FA5400]" />
                 </button>
               </span>
             )}
             {onlyNew && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#201C18] text-xs font-bold uppercase rounded-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#111111] text-xs font-bold uppercase rounded-xs">
                 Nouveautés uniquement
                 <button onClick={() => updateFilter('nouveautes', null)} aria-label="Supprimer le filtre nouveautés">
-                  <X className="w-3.5 h-3.5 text-[#C23B2E]" />
+                  <X className="w-3.5 h-3.5 text-[#FA5400]" />
                 </button>
               </span>
             )}
             {searchQuery && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#201C18] text-xs font-bold uppercase rounded-xs">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-white border border-[#111111] text-xs font-bold uppercase rounded-xs">
                 Recherche: « {searchQuery} »
                 <button onClick={() => updateFilter('q', null)} aria-label="Supprimer la recherche">
-                  <X className="w-3.5 h-3.5 text-[#C23B2E]" />
+                  <X className="w-3.5 h-3.5 text-[#FA5400]" />
                 </button>
               </span>
             )}
             <button
               onClick={resetAllFilters}
-              className="text-xs font-bold text-[#C23B2E] hover:underline uppercase ml-2"
+              className="text-xs font-bold text-[#FA5400] hover:underline uppercase ml-2 cursor-pointer"
             >
               Tout réinitialiser
             </button>
@@ -376,11 +377,11 @@ export const CatalogPage: React.FC = () => {
         {/* Layout with Sidebar & Products Grid */}
         <div className="flex gap-8 items-start">
           {/* Desktop Sticky Sidebar (260px) */}
-          <aside className="hidden md:block w-64 shrink-0 sticky top-24 bg-white border border-[#E4E0D6] p-6 rounded-xs space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E4E0D6]">
-              <h3 className="font-anton text-lg tracking-wider text-[#201C18]">FILTRES</h3>
+          <aside className="hidden md:block w-64 shrink-0 sticky top-24 bg-[#FFFFFF] border border-[#E5E5E5] p-6 rounded-xs space-y-6">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E5E5E5]">
+              <h3 className="font-anton text-lg tracking-wider text-[#111111]">FILTRES</h3>
               {activeFilterCount > 0 && (
-                <button onClick={resetAllFilters} className="text-xs text-[#C23B2E] font-bold hover:underline">
+                <button onClick={resetAllFilters} className="text-xs text-[#FA5400] font-bold hover:underline cursor-pointer">
                   Effacer
                 </button>
               )}
@@ -388,7 +389,7 @@ export const CatalogPage: React.FC = () => {
 
             {/* Usage Filter */}
             <div>
-              <p className="text-xs uppercase font-bold text-[#262421]/70 mb-2.5">Usage & Terrain</p>
+              <p className="text-xs uppercase font-bold text-[#111111]/70 mb-2.5">Usage & Terrain</p>
               <div className="space-y-1.5 text-sm">
                 {[
                   { label: 'Tous les terrains', value: null },
@@ -400,15 +401,15 @@ export const CatalogPage: React.FC = () => {
                   <button
                     key={u.label}
                     onClick={() => updateFilter('usage', u.value)}
-                    className={`w-full text-left px-2.5 py-1.5 rounded-xs transition-colors text-xs font-semibold flex items-center justify-between ${
+                    className={`w-full text-left px-2.5 py-1.5 rounded-xs transition-colors text-xs font-semibold flex items-center justify-between cursor-pointer ${
                       (selectedUsage === u.value || (u.value === null && !selectedUsage))
-                        ? 'bg-[#201C18] text-[#F5F3EE]'
-                        : 'text-[#201C18] hover:bg-[#E4E0D6]/50'
+                        ? 'bg-[#111111] text-[#FFFFFF]'
+                        : 'text-[#111111] hover:bg-[#F5F5F5]'
                     }`}
                   >
                     <span>{u.label}</span>
                     {(selectedUsage === u.value || (u.value === null && !selectedUsage)) && (
-                      <Check className="w-3.5 h-3.5 text-[#C23B2E]" />
+                      <Check className="w-3.5 h-3.5 text-[#FA5400]" />
                     )}
                   </button>
                 ))}
@@ -417,16 +418,16 @@ export const CatalogPage: React.FC = () => {
 
             {/* Size Filter (Grid of buttons) */}
             <div>
-              <p className="text-xs uppercase font-bold text-[#262421]/70 mb-2.5">Pointure</p>
+              <p className="text-xs uppercase font-bold text-[#111111]/70 mb-2.5">Pointure Nike</p>
               <div className="grid grid-cols-4 gap-1.5">
                 {sizeOptions.map((sz) => (
                   <button
                     key={sz}
                     onClick={() => updateFilter('taille', selectedSize === sz ? null : sz)}
-                    className={`py-1.5 text-xs font-anton border rounded-xs transition-colors ${
+                    className={`py-1.5 text-xs font-anton border rounded-xs transition-colors cursor-pointer ${
                       selectedSize === sz
-                        ? 'bg-[#C23B2E] text-[#F5F3EE] border-[#C23B2E]'
-                        : 'bg-[#F5F3EE] border-[#E4E0D6] text-[#201C18] hover:border-[#201C18]'
+                        ? 'bg-[#FA5400] text-[#FFFFFF] border-[#FA5400]'
+                        : 'bg-[#F5F5F5] border-[#E5E5E5] text-[#111111] hover:border-[#111111]'
                     }`}
                   >
                     {sz}
@@ -437,20 +438,20 @@ export const CatalogPage: React.FC = () => {
 
             {/* Color Filter (Swatch + Text label) */}
             <div>
-              <p className="text-xs uppercase font-bold text-[#262421]/70 mb-2.5">Teintes Dominantes</p>
+              <p className="text-xs uppercase font-bold text-[#111111]/70 mb-2.5">Teintes Nike</p>
               <div className="space-y-1.5">
                 {colorOptions.map((c) => (
                   <button
                     key={c.label}
                     onClick={() => updateFilter('couleur', selectedColor === c.label ? null : c.label)}
-                    className={`w-full text-left px-2.5 py-1.5 rounded-xs transition-colors text-xs font-semibold flex items-center gap-2 ${
+                    className={`w-full text-left px-2.5 py-1.5 rounded-xs transition-colors text-xs font-semibold flex items-center gap-2 cursor-pointer ${
                       selectedColor === c.label
-                        ? 'bg-[#201C18] text-[#F5F3EE]'
-                        : 'text-[#201C18] hover:bg-[#E4E0D6]/50'
+                        ? 'bg-[#111111] text-[#FFFFFF]'
+                        : 'text-[#111111] hover:bg-[#F5F5F5]'
                     }`}
                   >
                     <span
-                      className="w-3.5 h-3.5 rounded-full border border-black/20"
+                      className="w-3.5 h-3.5 rounded-full border border-black/25"
                       style={{ backgroundColor: c.hex }}
                     />
                     <span>{c.label}</span>
@@ -461,16 +462,16 @@ export const CatalogPage: React.FC = () => {
 
             {/* Gender Filter */}
             <div>
-              <p className="text-xs uppercase font-bold text-[#262421]/70 mb-2.5">Genre</p>
+              <p className="text-xs uppercase font-bold text-[#111111]/70 mb-2.5">Genre</p>
               <div className="flex gap-1.5">
                 {['homme', 'femme', 'unisexe'].map((g) => (
                   <button
                     key={g}
                     onClick={() => updateFilter('genre', selectedGender === g ? null : g)}
-                    className={`flex-1 py-1.5 text-xs font-anton uppercase border rounded-xs transition-colors ${
+                    className={`flex-1 py-1.5 text-xs font-anton uppercase border rounded-xs transition-colors cursor-pointer ${
                       selectedGender === g
-                        ? 'bg-[#201C18] text-[#F5F3EE] border-[#201C18]'
-                        : 'bg-[#F5F3EE] border-[#E4E0D6] text-[#201C18] hover:border-[#201C18]'
+                        ? 'bg-[#111111] text-[#FFFFFF] border-[#111111]'
+                        : 'bg-[#F5F5F5] border-[#E5E5E5] text-[#111111] hover:border-[#111111]'
                     }`}
                   >
                     {g}
@@ -483,16 +484,16 @@ export const CatalogPage: React.FC = () => {
           {/* Products Grid (2 col mobile / 4 col desktop) */}
           <div className="flex-1">
             {paginatedProducts.length === 0 ? (
-              <div className="bg-white border border-[#E4E0D6] p-12 text-center rounded-xs space-y-4">
-                <p className="font-anton text-2xl text-[#201C18] uppercase">
-                  Aucun modèle ne correspond à vos critères
+              <div className="bg-[#FFFFFF] border border-[#E5E5E5] p-12 text-center rounded-xs space-y-4">
+                <p className="font-anton text-2xl text-[#111111] uppercase">
+                  Aucun modèle Nike ne correspond à vos critères
                 </p>
-                <p className="text-sm text-[#262421]/70 max-w-md mx-auto">
-                  Essayez de réinitialiser certains filtres pour élargir votre recherche dans la collection running.
+                <p className="text-sm text-[#111111]/70 max-w-md mx-auto">
+                  Essayez de réinitialiser certains filtres pour élargir votre recherche dans la collection running Nike.
                 </p>
                 <button
                   onClick={resetAllFilters}
-                  className="px-6 py-3 bg-[#C23B2E] text-[#F5F3EE] font-anton text-sm tracking-wider uppercase rounded-xs hover:bg-[#a83327] transition-colors inline-block"
+                  className="px-6 py-3 bg-[#FA5400] text-[#FFFFFF] font-anton text-sm tracking-wider uppercase rounded-xs hover:bg-[#E03A00] transition-colors inline-block cursor-pointer shadow-xs"
                 >
                   Voir tous les modèles
                 </button>
@@ -510,13 +511,13 @@ export const CatalogPage: React.FC = () => {
               </div>
             )}
 
-            {/* Numbered Pagination (SEO Prioritized) */}
+            {/* Numbered Pagination */}
             {totalPages > 1 && (
               <div className="mt-12 flex items-center justify-center gap-2">
                 <button
                   disabled={currentPage <= 1}
                   onClick={() => updateFilter('page', currentPage - 1)}
-                  className="p-2.5 border border-[#201C18] bg-white rounded-xs disabled:opacity-30 hover:bg-[#201C18] hover:text-[#F5F3EE] transition-colors"
+                  className="p-2.5 border border-[#111111] bg-white rounded-xs disabled:opacity-30 hover:bg-[#111111] hover:text-[#FFFFFF] transition-colors cursor-pointer"
                   aria-label="Page précédente"
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -526,10 +527,10 @@ export const CatalogPage: React.FC = () => {
                   <button
                     key={pg}
                     onClick={() => updateFilter('page', pg)}
-                    className={`w-10 h-10 font-anton text-sm border rounded-xs transition-colors tabular-nums ${
+                    className={`w-10 h-10 font-anton text-sm border rounded-xs transition-colors tabular-nums cursor-pointer ${
                       currentPage === pg
-                        ? 'bg-[#C23B2E] text-[#F5F3EE] border-[#C23B2E]'
-                        : 'bg-white border-[#201C18] text-[#201C18] hover:bg-[#201C18] hover:text-[#F5F3EE]'
+                        ? 'bg-[#FA5400] text-[#FFFFFF] border-[#FA5400]'
+                        : 'bg-white border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-[#FFFFFF]'
                     }`}
                   >
                     {pg}
@@ -539,7 +540,7 @@ export const CatalogPage: React.FC = () => {
                 <button
                   disabled={currentPage >= totalPages}
                   onClick={() => updateFilter('page', currentPage + 1)}
-                  className="p-2.5 border border-[#201C18] bg-white rounded-xs disabled:opacity-30 hover:bg-[#201C18] hover:text-[#F5F3EE] transition-colors"
+                  className="p-2.5 border border-[#111111] bg-white rounded-xs disabled:opacity-30 hover:bg-[#111111] hover:text-[#FFFFFF] transition-colors cursor-pointer"
                   aria-label="Page suivante"
                 >
                   <ChevronRight className="w-5 h-5" />
@@ -553,18 +554,18 @@ export const CatalogPage: React.FC = () => {
       {/* Mobile Filters Drawer */}
       {mobileFiltersOpen && (
         <div
-          className="fixed inset-0 z-50 md:hidden bg-[#262421]/60 backdrop-blur-xs flex justify-end"
+          className="fixed inset-0 z-50 md:hidden bg-[#111111]/70 backdrop-blur-xs flex justify-end"
           role="dialog"
           aria-modal="true"
           aria-label="Filtres du catalogue"
         >
-          <div className="w-full max-w-xs bg-[#F5F3EE] h-full p-6 overflow-y-auto flex flex-col justify-between">
+          <div className="w-full max-w-xs bg-[#FFFFFF] h-full p-6 overflow-y-auto flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between pb-4 border-b border-[#E4E0D6] mb-6">
-                <h3 className="font-anton text-xl text-[#201C18]">FILTRES</h3>
+              <div className="flex items-center justify-between pb-4 border-b border-[#E5E5E5] mb-6">
+                <h3 className="font-anton text-xl text-[#111111]">FILTRES NIKE</h3>
                 <button
                   onClick={() => setMobileFiltersOpen(false)}
-                  className="p-2 text-[#201C18]"
+                  className="p-2 text-[#111111] cursor-pointer"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -572,7 +573,7 @@ export const CatalogPage: React.FC = () => {
 
               {/* Usages Mobile */}
               <div className="mb-6">
-                <p className="text-xs uppercase font-bold text-[#262421]/70 mb-2">Usage</p>
+                <p className="text-xs uppercase font-bold text-[#111111]/70 mb-2">Usage</p>
                 <div className="space-y-1 text-sm">
                   {[
                     { label: 'Tous', value: null },
@@ -584,8 +585,8 @@ export const CatalogPage: React.FC = () => {
                     <button
                       key={u.label}
                       onClick={() => updateFilter('usage', u.value)}
-                      className={`w-full text-left px-3 py-2 rounded-xs text-xs font-semibold ${
-                        selectedUsage === u.value ? 'bg-[#201C18] text-[#F5F3EE]' : 'bg-white'
+                      className={`w-full text-left px-3 py-2 rounded-xs text-xs font-semibold cursor-pointer ${
+                        selectedUsage === u.value ? 'bg-[#111111] text-[#FFFFFF]' : 'bg-[#F5F5F5]'
                       }`}
                     >
                       {u.label}
@@ -596,14 +597,14 @@ export const CatalogPage: React.FC = () => {
 
               {/* Pointures Mobile */}
               <div className="mb-6">
-                <p className="text-xs uppercase font-bold text-[#262421]/70 mb-2">Pointure</p>
+                <p className="text-xs uppercase font-bold text-[#111111]/70 mb-2">Pointure</p>
                 <div className="grid grid-cols-4 gap-1.5">
                   {sizeOptions.map((sz) => (
                     <button
                       key={sz}
                       onClick={() => updateFilter('taille', selectedSize === sz ? null : sz)}
-                      className={`py-2 text-xs font-anton border rounded-xs ${
-                        selectedSize === sz ? 'bg-[#C23B2E] text-[#F5F3EE]' : 'bg-white'
+                      className={`py-2 text-xs font-anton border rounded-xs cursor-pointer ${
+                        selectedSize === sz ? 'bg-[#FA5400] text-[#FFFFFF]' : 'bg-[#F5F5F5]'
                       }`}
                     >
                       {sz}
@@ -615,7 +616,7 @@ export const CatalogPage: React.FC = () => {
 
             <button
               onClick={() => setMobileFiltersOpen(false)}
-              className="w-full py-4 bg-[#C23B2E] text-[#F5F3EE] font-anton tracking-wider uppercase rounded-xs"
+              className="w-full py-4 bg-[#FA5400] text-[#FFFFFF] font-anton tracking-wider uppercase rounded-xs cursor-pointer shadow-sm"
             >
               Appliquer ({filteredProducts.length} résultats)
             </button>

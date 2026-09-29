@@ -2,11 +2,12 @@
 
 @layer base {
   :root {
-    --craie: #F5F3EE;
-    --encre: #201C18;
-    --vermillon: #C23B2E;
-    --noir: #262421;
-    --sable: #E4E0D6;
+    --craie: #F5F5F5;     /* Nike Clean Off-White Background */
+    --encre: #111111;     /* Nike Iconic Pitch Black */
+    --vermillon: #FA5400; /* Nike Total Orange (Iconic Performance Accent) */
+    --volt: #CCFF00;      /* Nike Electric Volt (Signature Marathon Accent) */
+    --noir: #111111;      /* Nike Pitch Black */
+    --sable: #E5E5E5;     /* Nike Light Platinum Grey */
     --radius: 2px;
     --nav-h: 64px;
 
@@ -46,7 +47,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(32, 28, 24, 0.85) 1.5px, transparent 1.6px);
+  background: radial-gradient(circle at center, rgba(17, 17, 17, 0.85) 1.5px, transparent 1.6px);
   background-size: 5px 5px;
   mix-blend-mode: multiply;
   pointer-events: none;
@@ -61,7 +62,7 @@
   height: 100%;
   pointer-events: none;
   z-index: 99;
-  opacity: 0.04;
+  opacity: 0.025;
 }
 
 /* Custom scrollbars */

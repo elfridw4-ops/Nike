@@ -84,7 +84,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [location.pathname, location.search]);
 
   return (
-    <div className="flex flex-col min-h-screen relative selection:bg-[#C23B2E] selection:text-[#F5F3EE]">
+    <div className="flex flex-col min-h-screen relative selection:bg-[#FA5400] selection:text-[#FFFFFF]">
       {/* Top Sentinel for Sticky Header IntersectionObserver */}
       <div id="nav-sentinel" className="h-1 w-full absolute top-0 left-0 pointer-events-none" />
 

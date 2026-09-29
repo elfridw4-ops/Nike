@@ -34,10 +34,10 @@ export const Footer: React.FC = () => {
     {
       title: 'Aide & Conseils',
       links: [
-        { label: 'Guide des pointures', path: '/catalogue' },
+        { label: 'Guide des pointures Nike', path: '/catalogue' },
         { label: 'Suivi de commande', path: '/catalogue' },
         { label: 'Livraison & Délais', path: '/catalogue' },
-        { label: 'Retours sous 14 jours', path: '/catalogue' },
+        { label: 'Retours sous 30 jours', path: '/catalogue' },
         { label: 'Foire aux questions (FAQ)', path: '/catalogue' },
         { label: 'Nous contacter', path: '/catalogue' }
       ]
@@ -45,11 +45,11 @@ export const Footer: React.FC = () => {
     {
       title: 'Communauté',
       links: [
-        { label: 'Rebuild Running Club', path: '/catalogue' },
-        { label: 'Sessions Cotonou', path: '/catalogue' },
-        { label: 'Programme Ambassadeurs', path: '/catalogue' },
-        { label: 'Événements & Courses', path: '/catalogue' },
-        { label: 'Stories d’athlètes', path: '/catalogue' }
+        { label: 'Nike Running Club', path: '/catalogue' },
+        { label: 'Sessions Cotonou & International', path: '/catalogue' },
+        { label: 'Programme Athlètes Elite', path: '/catalogue' },
+        { label: 'Événements & Marathons', path: '/catalogue' },
+        { label: 'Stories & Innovation', path: '/catalogue' }
       ]
     },
     {
@@ -58,62 +58,65 @@ export const Footer: React.FC = () => {
         { label: 'Conditions Générales (CGV)', path: '/catalogue' },
         { label: 'Politique de confidentialité', path: '/catalogue' },
         { label: 'Gestion des cookies', path: '/catalogue' },
-        { label: 'Transparence & Matériaux', path: '/catalogue' },
+        { label: 'Durabilité & Innovation Move to Zero', path: '/catalogue' },
         { label: 'Mentions légales', path: '/catalogue' }
       ]
     }
   ];
 
   return (
-    <footer className="bg-[#201C18] text-[#F5F3EE] pt-16 pb-12 border-t border-[#262421] relative overflow-hidden">
+    <footer className="bg-[#111111] text-[#FFFFFF] pt-16 pb-12 border-t border-[#222222] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Newsletter & Brand statement */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-16 border-b border-[#262421]/60">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-16 border-b border-[#222222]">
           <div className="lg:col-span-5 space-y-4">
-            <Link to="/" className="inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-[#C23B2E]">
-              <span className="font-anton text-3xl sm:text-4xl tracking-wider text-[#F5F3EE]">
+            <Link to="/" className="inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-[#FA5400] group">
+              <span className="font-anton text-3xl sm:text-4xl tracking-wider text-[#FFFFFF] group-hover:text-[#FA5400] transition-colors">
+                NIKE
+              </span>
+              <span className="px-1.5 py-0.5 bg-[#222222] text-[#CCFF00] font-anton text-[9px] uppercase tracking-widest rounded-2xs">
                 REBUILD
               </span>
-              <span className="w-2.5 h-2.5 bg-[#C23B2E] rounded-full inline-block"></span>
             </Link>
-            <p className="text-[#F5F3EE]/70 text-sm max-w-sm leading-relaxed">
-              Le mouvement d’abord. Performance, géométrie et vitesse conçues pour les coureurs urbains et tout-terrain.
+            <p className="text-[#FFFFFF]/70 text-sm max-w-sm leading-relaxed">
+              Le mouvement d’abord. Performance brute, réactivité explosive et amorti de pointe conçus pour repousser vos records.
             </p>
           </div>
 
-          <div className="lg:col-span-7 bg-[#262421] p-6 sm:p-8 rounded-xs border border-[#F5F3EE]/10">
-            <h4 className="font-anton text-xl tracking-wider uppercase text-[#F5F3EE]">
-              REJOIGNEZ LE PELOTON D’ÉLITE
+          <div className="lg:col-span-7 bg-[#1A1A1A] p-6 sm:p-8 rounded-xs border border-[#FFFFFF]/10">
+            <h4 className="font-anton text-xl tracking-wider uppercase text-[#FFFFFF] flex items-center gap-2">
+              <span>REJOIGNEZ NIKE RUNNING</span>
+              <span className="px-2 py-0.5 bg-[#FA5400] text-[#FFFFFF] text-[10px] rounded-2xs font-anton">VIP</span>
             </h4>
-            <p className="text-xs sm:text-sm text-[#F5F3EE]/70 mt-1 mb-4">
-              Recevez en avant-première nos lancements de séries limitées et invitations aux sessions running.
+            <p className="text-xs sm:text-sm text-[#FFFFFF]/70 mt-1 mb-4">
+              Recevez en avant-première nos lancements exclusifs, coloris limités et accès aux sessions d'entraînement.
             </p>
 
             {subscribed ? (
               <div className="p-3 bg-emerald-900/40 border border-emerald-500/50 text-emerald-200 text-sm flex items-center gap-2 rounded-xs">
                 <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-                <span>Merci ! Vous êtes inscrit aux alertes exclusives REBUILD.</span>
+                <span>Bienvenue chez Nike ! Vous êtes désormais inscrit aux lancements prioritaires.</span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   required
-                  placeholder="Votre adresse email professionnelle ou personnelle"
+                  placeholder="Votre adresse email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-[#201C18] border border-[#F5F3EE]/20 text-[#F5F3EE] px-4 py-3 text-sm flex-1 focus:outline-none focus:border-[#C23B2E] rounded-xs"
+                  className="bg-[#111111] border border-[#FFFFFF]/20 text-[#FFFFFF] px-4 py-3 text-sm flex-1 focus:outline-none focus:border-[#FA5400] rounded-xs"
                 />
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-[#C23B2E] text-[#F5F3EE] font-anton text-sm tracking-wider uppercase hover:bg-[#a83327] transition-colors flex items-center justify-center gap-2 rounded-xs"
+                  className="px-6 py-3 bg-[#FA5400] text-[#FFFFFF] font-anton text-sm tracking-wider uppercase hover:bg-[#E03A00] transition-colors flex items-center justify-center gap-2 rounded-xs cursor-pointer shadow-xs"
                 >
                   <span>S'inscrire</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </form>
             )}
-            <p className="text-[11px] text-[#F5F3EE]/40 mt-2">
+            <p className="text-[11px] text-[#FFFFFF]/40 mt-2">
               Pas de spam. Désabonnement en un clic à tout moment.
             </p>
           </div>
@@ -123,15 +126,15 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12">
           {columns.map((col) => (
             <div key={col.title} className="space-y-3">
-              <h5 className="font-anton text-base tracking-wider text-[#F5F3EE]">
+              <h5 className="font-anton text-base tracking-wider text-[#FFFFFF]">
                 {col.title}
               </h5>
-              <ul className="space-y-2 text-sm text-[#F5F3EE]/70">
+              <ul className="space-y-2 text-sm text-[#FFFFFF]/70">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.path}
-                      className="hover:text-[#C23B2E] transition-colors focus-visible:outline-1 focus-visible:outline-[#C23B2E]"
+                      className="hover:text-[#FA5400] transition-colors focus-visible:outline-1 focus-visible:outline-[#FA5400]"
                     >
                       {link.label}
                     </Link>
@@ -143,12 +146,12 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar: Copyright & Location */}
-        <div className="pt-8 mt-8 border-t border-[#262421]/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#F5F3EE]/50">
-          <p>© {new Date().getFullYear()} REBUILD Sportswear. Tous droits réservés.</p>
+        <div className="pt-8 mt-8 border-t border-[#222222] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#FFFFFF]/50">
+          <p>© {new Date().getFullYear()} NIKE, Inc. Tous droits réservés.</p>
           <div className="flex items-center gap-4">
-            <span>Atelier & Distribution : Cotonou, Bénin</span>
+            <span>Performance & Innovation Sportswear</span>
             <span>·</span>
-            <span>Performance Lab</span>
+            <span>Just Do It.</span>
           </div>
         </div>
       </div>
